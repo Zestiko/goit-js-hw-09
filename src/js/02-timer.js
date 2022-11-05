@@ -10,11 +10,6 @@ const refs = {
     seconds: document.querySelector('[data-seconds]'),
 }
 
-
-
-refs.start.disabled = true;  
-
-
 class Timer {
   constructor({ onTick  }) {
     this.intervalId = null;
@@ -34,7 +29,6 @@ class Timer {
       return;
     }
     this.startTime = startTime;
-    // const startTime = Date.now();
     this.isActive = true;
 
     this.intervalId = setInterval(() => {
@@ -84,7 +78,7 @@ const timer = new Timer({
     onTick: updateClockface,
     // startTime: selectedDates[0],
 });
-
+refs.start.disabled = true;  
 refs.start.addEventListener('click', () => {
     timer.start(startTime);
 });
@@ -107,16 +101,19 @@ const options = {
         startTime = selectedDates[0];
     if (selectedDates[0] < new Date()) {
         Report.failure(
-'Wrong',
-'"Please choose a date in the future"',
-'Okay :(',
+            'Wrong',
+            '"Please choose a date in the future"',
+            'Okay :(',
 );
     } else {
+        Report.success(
+            'Good choice',
+            `${startTime}`,
+            'Okay',
+);
         refs.start.disabled = false;  
     }
   },
 };
-
-
 
 flatpickr("#datetime-picker", options);

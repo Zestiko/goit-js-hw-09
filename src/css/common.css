@@ -16,3 +16,39 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input_container {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.input_container  input {
+  font-family: 'Pacifico', cursive;
+  font-size: 30px;
+}
+.input_container button {
+  font-family: 'Pacifico', cursive;
+  font-size: 30px;
+}
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+span {
+  font-family: 'Pacifico', cursive;
+  font-size: 30px;
+}
