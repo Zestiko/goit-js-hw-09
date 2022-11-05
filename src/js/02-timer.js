@@ -41,8 +41,10 @@ class Timer {
       const currentTime = Date.now();
       const deltaTime = startTime - currentTime;
       const time = this.getTimeComponents(deltaTime);
-
-      this.onTick(time);
+        this.onTick(time);
+        if (deltaTime <= 0) {
+            this.stop();
+        }
     }, 1000);
   }
 
@@ -84,7 +86,7 @@ const timer = new Timer({
 });
 
 refs.start.addEventListener('click', () => {
-    timer.start(selectedDates[0]);
+    timer.start(startTime);
 });
 
 function updateClockface({ days, hours, minutes, seconds }) {
@@ -94,13 +96,15 @@ function updateClockface({ days, hours, minutes, seconds }) {
     refs.seconds.textContent = `${seconds}`;
 }
 
-
+let startTime = null;
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  onClose(selectedDates) {
+    onClose(selectedDates) {
+    //   timer.start(selectedDates[0]);
+        startTime = selectedDates[0];
     if (selectedDates[0] < new Date()) {
         Report.failure(
 'Wrong',
