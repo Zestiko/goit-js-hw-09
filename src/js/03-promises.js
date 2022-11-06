@@ -6,7 +6,9 @@ const refs = {
   button: document.querySelector('button'),
 }
 const { form, button } = refs;
-const promiseOptions = {};
+const promiseOptions = {
+  step: 0,
+};
 button.addEventListener('click', onClick)
 form.addEventListener('input', debounce(onInput,300))
 
@@ -15,20 +17,15 @@ function onInput(e) {
   const value = e.target.value; 
   if (e.target.name === "delay") {
     promiseOptions.delay = Number(value);
-   
     console.log( promiseOptions)
   }
     if (e.target.name === "step") {
-    
     promiseOptions.step = Number(value);
-   
     console.log( promiseOptions)
     }
    if (e.target.name === "amount") {
-    
     promiseOptions.amount = Number(value);
-   
-    console.log( promiseOptions)
+     console.log(promiseOptions)
    }
   
 }
@@ -41,8 +38,9 @@ function onClick(e) {
     if (index >=2) {
       delay += promiseOptions.step;
     }
-  createPromise(index, delay).then(result => console.log(result)).catch(error => console.log(error));
-
+    createPromise(index, delay)
+      .then(result => console.log(result))
+      .catch(error => console.log(error));
   };
 }
 
