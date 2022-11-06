@@ -1,22 +1,19 @@
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import "notiflix/dist/notiflix-3.2.5.min.css"
+import debounce from 'lodash.debounce';
 const refs = {
   form: document.querySelector('.form'),
-  delay: document.querySelector('input[name=delay]'),
-  step: document.querySelector('input[name=step]'),
-  amount: document.querySelector('input[name=amount]'),
-  button: document.querySelector('button')
+  button: document.querySelector('button'),
 }
-const promiseOptions = {
+const { form, button } = refs;
+const promiseOptions = {};
+button.addEventListener('click', onClick)
+form.addEventListener('input', debounce(onInput,300))
 
-};
-refs.button.addEventListener('click', onClick)
-refs.form.addEventListener('input', onInput)
 
 function onInput(e) {
-  const value = e.target.value;
-  
-  
+  const value = e.target.value; 
   if (e.target.name === "delay") {
-    
     promiseOptions.delay = Number(value);
    
     console.log( promiseOptions)
@@ -42,9 +39,10 @@ function onClick(e) {
   let delay = promiseOptions.delay;
   for (let index = 1; index <= promiseOptions.amount; index += 1) {
     delay += promiseOptions.step;
-  createPromise(index, delay).then(result => console.log(result)).catch(error => console.log(error));
+  createPromise(index, delay).then(result => result).catch(error => error);
   
   };
+  
 }
 
 function createPromise(position, delay) {
@@ -52,9 +50,9 @@ function createPromise(position, delay) {
     const shouldResolve = Math.random() > 0.3;
     setTimeout(() => {
       if (shouldResolve) {
-        console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       } else {
-        console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
       }
     }, delay);
   
