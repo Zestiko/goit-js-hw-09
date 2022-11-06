@@ -38,11 +38,12 @@ function onClick(e) {
   console.log(promiseOptions)
   let delay = promiseOptions.delay;
   for (let index = 1; index <= promiseOptions.amount; index += 1) {
-    delay += promiseOptions.step;
-  createPromise(index, delay).then(result => result).catch(error => error);
-  
+    if (index >=2) {
+      delay += promiseOptions.step;
+    }
+  createPromise(index, delay).then(result => console.log(result)).catch(error => console.log(error));
+
   };
-  
 }
 
 function createPromise(position, delay) {
